@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": "3378",
+      "fullname": "Đào Trường Sơn",
+      "email": "sondao@gmail.com",
+      "password": "123123"
+    }
+  ],
+  "task": [],
+  "project": [
+    {
+      "id": "proj-001",
+      "projectName": "Quản lý công việc nội ngoại",
+      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1759416832/xvadoh1dwonrhdevefbx.png",
+      "description": "Hệ thống giúp quản lý và phân chia công việc trong gia đình, bao gồm các công việc trong nhà và ngoài trời một cách hiệu quả.",
+      "members": []
+    },
+    {
+      "id": "proj-002",
+      "projectName": "Hệ thống đặt lịch khám bệnh",
+      "image": "https://example.com/images/project2.png",
+      "description": "Ứng dụng hỗ trợ bệnh nhân đặt lịch khám bệnh trực tuyến tại các cơ sở y tế, tiết kiệm thời gian và nâng cao hiệu quả quản lý lịch khám.",
+      "members": []
+    },
+    {
+      "id": "proj-003",
+      "projectName": "Ứng dụng học tiếng Anh",
+      "image": "https://example.com/images/project3.png",
+      "description": "Ứng dụng học tiếng Anh dành cho mọi lứa tuổi với các bài học tương tác, trò chơi ngôn ngữ và hệ thống kiểm tra trình độ.",
+      "members": []
+    }
+  ]
+}

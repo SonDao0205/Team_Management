@@ -1,0 +1,158 @@
+import { useEffect, useState } from "react";
+import { initError, initUser, type Error, type User } from "../../interfaces";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/CustomHook";
+import { addUser, getAllUsers } from "../../apis/auth.api";
+import { toast } from "react-toastify";
+
+export default function Register() {
+  const [newUser, setNewUser] = useState<Omit<User, "id">>(initUser);
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<Error>(initError);
+  const navigate = useNavigate();
+  const { data } = useAppSelector((state) => state.authSlice);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
+
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setNewUser({
+      ...newUser,
+      [name]: value,
+    });
+  };
+
+  const validate = () => {
+    const newError: Error = {
+      fullnameError: undefined,
+      emailError: undefined,
+      passwordError: undefined,
+      confirmPasswordError: undefined,
+    };
+
+    if (newUser.fullname.trim().length === 0) {
+      newError.fullnameError = "Bạn cần nhập tên đầy đủ!";
+    }
+
+    if (newUser.email.trim().length === 0) {
+      newError.emailError = "Bạn cần nhập email!";
+    }
+
+    if (newUser.password.trim().length === 0) {
+      newError.passwordError = "Bạn cần nhập mật khẩu!";
+    }
+
+    if (confirmPassword.trim().length === 0) {
+      newError.confirmPasswordError = "Bạn cần nhập xác nhận mật khẩu!";
+    } else if (newUser.password !== confirmPassword) {
+      newError.confirmPasswordError = "Mật khẩu xác nhận không khớp!";
+    }
+
+    const exist = data.find((element) => element.email === newUser.email);
+    if (exist) {
+      newError.emailError = "Email đã tồn tại!";
+    }
+
+    setError(newError);
+
+    return Object.values(newError).every((value) => value === undefined);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!validate()) return;
+
+    dispatch(addUser(newUser));
+    toast.success("Đăng ký thành công!");
+    setNewUser(initUser);
+    setConfirmPassword("");
+    navigate("/");
+  };
+
+  return (
+    <div className="authWrapper">
+      <h1>Đăng ký</h1>
+      <div className="authContainer">
+        <form
+          action=""
+          className="d-flex flex-column gap-4"
+          onSubmit={handleSubmit}
+        >
+          <div>
+            <input
+              className="form-control text-center p-3"
+              type="text"
+              name="fullname"
+              id="fullname"
+              placeholder="Họ và tên"
+              value={newUser.fullname}
+              onChange={handleInput}
+            />
+            {error.fullnameError && (
+              <p className="text-danger">{error.fullnameError}</p>
+            )}
+          </div>
+          <div>
+            <input
+              className="form-control text-center p-3"
+              type="text"
+              name="email"
+              id="email"
+              placeholder="Địa chỉ email"
+              value={newUser.email}
+              onChange={handleInput}
+            />
+            {error.emailError && (
+              <p className="text-danger">{error.emailError}</p>
+            )}
+          </div>
+          <div>
+            <input
+              className="form-control text-center p-3"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Mật khẩu"
+              value={newUser.password}
+              onChange={handleInput}
+            />
+            {error.passwordError && (
+              <p className="text-danger">{error.passwordError}</p>
+            )}
+          </div>
+          <div>
+            <input
+              className="form-control text-center p-3"
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              placeholder="Xác nhận mật khẩu"
+              value={confirmPassword}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setConfirmPassword(event.target.value)
+              }
+            />
+            {error.confirmPasswordError && (
+              <p className="text-danger">{error.confirmPasswordError}</p>
+            )}
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Đăng ký
+          </button>
+          <p className="text-center">
+            Chưa có tài khoản?{" "}
+            <span
+              className="text-primary cursor-pointer"
+              onClick={() => navigate("/")}
+            >
+              Đăng nhập
+            </span>
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background-color: #f8fafc;
+}
+
+/* Auth */
+.authWrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.authContainer {
+  width: 100%;
+  max-width: 533px;
+  height: fit-content;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 20px;
+  padding: 38px 38px 10px 38px;
+  background-color: white;
+}
+
+.main-content {
+  padding: 24px 300px 24px 300px;
+}
+
+/* Modal */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 1001;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+/* TaskGroup */
+
+/* Hiệu ứng fade slide */
+.fade-enter {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.fade-enter-active {
+  max-height: 1000px;
+  opacity: 1;
+  transition: all 300ms ease-in-out;
+}
+
+.fade-exit {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.fade-exit-active {
+  max-height: 0;
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}

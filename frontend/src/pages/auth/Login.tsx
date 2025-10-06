@@ -26,6 +26,8 @@ export default function Login() {
 
   useEffect(() => {
     dispatch(getAllUsers());
+    const userLocal = JSON.parse(localStorage.getItem("user") || "[]");
+    if (userLocal.length !== 0) navigate("/team-management");
   }, []);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +54,17 @@ export default function Login() {
       newError.passwordError = "Bạn cần nhập mật khẩu!";
     }
 
+    const exist = data.some(
+      (element) =>
+        element.email === input.email && element.password === input.password
+    );
+
+    if (!exist) {
+      newError.emailError = "Email hoặc mật khẩu không chính xác!";
+      newError.passwordError = "Email hoặc mật khẩu không chính xác!";
+      toast.error("Đăng nhập thất bại!");
+    }
+
     setError(newError);
 
     return Object.values(newError).every((value) => value === undefined);
@@ -60,24 +73,15 @@ export default function Login() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validate()) return;
-    const exist = data.some(
-      (element) =>
-        element.email === input.email && element.password === input.password
-    );
-    if (!exist) {
-      toast.error("Đăng nhập thất bại");
-      return;
-    }
     toast.success("Đăng nhập thành công!");
+    localStorage.setItem("user", JSON.stringify(input));
     setInput(initInput);
-    setTimeout(() => {
-      navigate("/team-management");
-    }, 3200);
+    navigate("/team-management");
   };
 
   return (
     <div className="authWrapper">
-      <h1>Đăng nhập</h1>
+      <h2 className="mb-3">Đăng nhập</h2>
       <div className="authContainer">
         <form
           action=""
@@ -87,7 +91,11 @@ export default function Login() {
           <div>
             <label htmlFor="email">Email</label>
             <input
-              className="form-control text-center p-3"
+              className={
+                error.emailError
+                  ? "form-control text-center p-3 border-danger"
+                  : "form-control text-center p-3"
+              }
               type="text"
               name="email"
               id="email"
@@ -95,11 +103,18 @@ export default function Login() {
               value={input.email}
               onChange={handleInput}
             />
+            {error.emailError && (
+              <p className="text-danger">{error.emailError}</p>
+            )}
           </div>
           <div>
             <label htmlFor="password">Mật khẩu</label>
             <input
-              className="form-control text-center p-3"
+              className={
+                error.passwordError
+                  ? "form-control text-center p-3 border-danger"
+                  : "form-control text-center p-3"
+              }
               type="password"
               name="password"
               id="password"
@@ -107,8 +122,11 @@ export default function Login() {
               value={input.password}
               onChange={handleInput}
             />
+            {error.passwordError && (
+              <p className="text-danger">{error.passwordError}</p>
+            )}
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary p-3">
             Đăng nhập
           </button>
           <p className="text-center">

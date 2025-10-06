@@ -3,21 +3,23 @@ export type User = {
   fullname: string;
   email: string;
   password: string;
+  image?: string;
+  role?: string;
 };
 
 export type Task = {
   id: string;
   taskName: string;
-  assigneeId: string;
+  assigneeId: string | "none";
   projectId: string;
   asignDate: string;
   dueDate: string;
-  priority: "Thấp" | "Trung bình" | "Cao";
-  progress: "Đúng tiến độ" | "Có rủi ro" | "Trễ hạn";
-  status: "To do" | "In Progress" | "Pending" | "Done";
+  priority: "Low" | "Medium" | "High" | "none";
+  progress: "On schedule" | "At risk" | "Delayed" | "none";
+  status: "To do" | "In Progress" | "Pending" | "Done" | "none";
 };
 
-type Members = {
+export type Members = {
   userId: string;
   role: string;
 };
@@ -30,6 +32,7 @@ export type Project = {
   members: Members[];
 };
 
+//Slice Type
 export type AuthType = {
   status: "idle" | "pending" | "success" | "error";
   data: User[];
@@ -41,6 +44,13 @@ export type ProjectType = {
   status: "idle" | "pending" | "success" | "error";
   data: Project[];
   allData: Project[];
+  error: string | undefined;
+};
+
+export type TaskType = {
+  status: "idle" | "pending" | "success" | "error";
+  data: Task[];
+  allData: Task[];
   error: string | undefined;
 };
 
@@ -69,6 +79,17 @@ export const initProject: Omit<Project, "id"> = {
   image: "",
   description: "",
   members: [],
+};
+
+export const initTask: Omit<Task, "id"> = {
+  taskName: "",
+  asignDate: "",
+  projectId: "",
+  assigneeId: "",
+  dueDate: "",
+  priority: "none",
+  status: "none",
+  progress: "none",
 };
 
 export const initError: Error = {

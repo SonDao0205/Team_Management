@@ -149,7 +149,6 @@ export default function ModalAddProject({
                 id="image"
                 name="image"
                 onChange={handleUploadImage}
-                // onChange={(e) => setFile(e.target.files?.[0] || null)}
               ></input>
               {error.imageError && (
                 <p className="text-danger">{error.imageError}</p>

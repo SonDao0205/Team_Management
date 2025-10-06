@@ -44,6 +44,9 @@ export default function Register() {
     if (newUser.password.trim().length === 0) {
       newError.passwordError = "Bạn cần nhập mật khẩu!";
     }
+    if (newUser.password.trim().length < 8) {
+      newError.passwordError = "Bạn cần nhập mật khẩu tối thiểu 8 ký tự!";
+    }
 
     if (confirmPassword.trim().length === 0) {
       newError.confirmPasswordError = "Bạn cần nhập xác nhận mật khẩu!";
@@ -74,7 +77,7 @@ export default function Register() {
 
   return (
     <div className="authWrapper">
-      <h1>Đăng ký</h1>
+      <h2 className="mb-3">Đăng ký</h2>
       <div className="authContainer">
         <form
           action=""
@@ -83,7 +86,11 @@ export default function Register() {
         >
           <div>
             <input
-              className="form-control text-center p-3"
+              className={
+                error.fullnameError
+                  ? "form-control text-center p-3 border-danger"
+                  : "form-control text-center p-3"
+              }
               type="text"
               name="fullname"
               id="fullname"
@@ -97,7 +104,11 @@ export default function Register() {
           </div>
           <div>
             <input
-              className="form-control text-center p-3"
+              className={
+                error.emailError
+                  ? "form-control text-center p-3 border-danger"
+                  : "form-control text-center p-3"
+              }
               type="text"
               name="email"
               id="email"
@@ -111,7 +122,11 @@ export default function Register() {
           </div>
           <div>
             <input
-              className="form-control text-center p-3"
+              className={
+                error.passwordError
+                  ? "form-control text-center p-3 border-danger"
+                  : "form-control text-center p-3"
+              }
               type="password"
               name="password"
               id="password"
@@ -125,7 +140,11 @@ export default function Register() {
           </div>
           <div>
             <input
-              className="form-control text-center p-3"
+              className={
+                error.confirmPasswordError
+                  ? "form-control text-center p-3 border-danger"
+                  : "form-control text-center p-3"
+              }
               type="password"
               name="confirmPassword"
               id="confirmPassword"
@@ -139,7 +158,7 @@ export default function Register() {
               <p className="text-danger">{error.confirmPasswordError}</p>
             )}
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary p-3">
             Đăng ký
           </button>
           <p className="text-center">

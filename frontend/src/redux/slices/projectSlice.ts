@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { ProjectType } from "../../interfaces";
 import {
+  addMember,
   addProject,
+  deleteMember,
   deleteProject,
   getAllProjects,
+  updateMember,
   updateProject,
 } from "../../apis/project.api";
 
@@ -54,6 +57,35 @@ const projectSlice = createSlice({
         if (index === -1) return;
         state.data[index] = action.payload;
         state.allData[index] = action.payload;
+      })
+      .addCase(addMember.fulfilled, (state, action) => {
+        const { id } = action.payload;
+        const index = state.allData.findIndex((element) => element.id === id);
+        if (index === -1) return;
+        state.data[index] = action.payload;
+        state.allData[index] = action.payload;
+      })
+      .addCase(updateMember.fulfilled, (state, action) => {
+        const updatedProject = action.payload;
+        if (!updatedProject) return;
+
+        const index = state.data.findIndex(
+          (element) => element.id === updatedProject.id
+        );
+        if (index !== -1) {
+          state.data[index] = updatedProject;
+          state.allData[index] = updatedProject;
+        }
+      })
+      .addCase(deleteMember.fulfilled, (state, action) => {
+        if (!action.payload) return;
+        const { projectId, userId } = action.payload;
+        const project = state.data.find((element) => element.id === projectId);
+        if (!project) return;
+
+        project.members = project.members.filter(
+          (element) => element.userId !== userId
+        );
       });
   },
 });

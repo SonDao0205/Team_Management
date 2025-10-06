@@ -7,27 +7,70 @@
       "password": "123123"
     }
   ],
-  "task": [],
+  "task": [
+    {
+      "id": "be93",
+      "taskName": "soạn nội dung nội bộ",
+      "asignDate": "2025-10-06",
+      "projectId": "proj-001",
+      "assigneeId": "none",
+      "dueDate": "2025-10-08",
+      "priority": "Low",
+      "status": "To do",
+      "progress": "On schedule"
+    },
+    {
+      "id": "13cd",
+      "taskName": "soạn nội dung ngoại bộ",
+      "asignDate": "2025-10-06",
+      "projectId": "proj-001",
+      "assigneeId": "",
+      "dueDate": "2025-10-08",
+      "priority": "Medium",
+      "status": "In Progress",
+      "progress": "Delayed"
+    },
+    {
+      "id": "12db",
+      "taskName": "123",
+      "asignDate": "2025-10-06",
+      "projectId": "proj-001",
+      "assigneeId": "",
+      "dueDate": "2025-10-09",
+      "priority": "Medium",
+      "status": "To do",
+      "progress": "On schedule"
+    },
+    {
+      "id": "00ed",
+      "taskName": "1234",
+      "asignDate": "2025-10-06",
+      "projectId": "proj-001",
+      "assigneeId": "",
+      "dueDate": "2025-10-07",
+      "priority": "Low",
+      "status": "To do",
+      "progress": "At risk"
+    }
+  ],
   "project": [
     {
       "id": "proj-001",
       "projectName": "Quản lý công việc nội ngoại",
       "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1759416832/xvadoh1dwonrhdevefbx.png",
       "description": "Hệ thống giúp quản lý và phân chia công việc trong gia đình, bao gồm các công việc trong nhà và ngoài trời một cách hiệu quả.",
-      "members": []
+      "members": [
+        {
+          "userId": "3378",
+          "role": "123"
+        }
+      ]
     },
     {
       "id": "proj-002",
       "projectName": "Hệ thống đặt lịch khám bệnh",
       "image": "https://example.com/images/project2.png",
       "description": "Ứng dụng hỗ trợ bệnh nhân đặt lịch khám bệnh trực tuyến tại các cơ sở y tế, tiết kiệm thời gian và nâng cao hiệu quả quản lý lịch khám.",
-      "members": []
-    },
-    {
-      "id": "proj-003",
-      "projectName": "Ứng dụng học tiếng Anh",
-      "image": "https://example.com/images/project3.png",
-      "description": "Ứng dụng học tiếng Anh dành cho mọi lứa tuổi với các bài học tương tác, trò chơi ngôn ngữ và hệ thống kiểm tra trình độ.",
       "members": []
     }
   ]

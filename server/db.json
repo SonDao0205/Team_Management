@@ -5,6 +5,12 @@
       "fullname": "Đào Trường Sơn",
       "email": "sondao@gmail.com",
       "password": "123123"
+    },
+    {
+      "id": "3af0",
+      "fullname": "sơn đào",
+      "email": "sondao1@gmail.com",
+      "password": "123123123"
     }
   ],
   "task": [
@@ -13,29 +19,18 @@
       "taskName": "soạn nội dung nội bộ",
       "asignDate": "2025-10-06",
       "projectId": "proj-001",
-      "assigneeId": "none",
+      "assigneeId": "3378",
       "dueDate": "2025-10-08",
       "priority": "Low",
       "status": "To do",
       "progress": "On schedule"
     },
     {
-      "id": "13cd",
-      "taskName": "soạn nội dung ngoại bộ",
-      "asignDate": "2025-10-06",
-      "projectId": "proj-001",
-      "assigneeId": "",
-      "dueDate": "2025-10-08",
-      "priority": "Medium",
-      "status": "In Progress",
-      "progress": "Delayed"
-    },
-    {
       "id": "12db",
       "taskName": "123",
       "asignDate": "2025-10-06",
       "projectId": "proj-001",
-      "assigneeId": "",
+      "assigneeId": "3378",
       "dueDate": "2025-10-09",
       "priority": "Medium",
       "status": "To do",
@@ -51,6 +46,28 @@
       "priority": "Low",
       "status": "To do",
       "progress": "At risk"
+    },
+    {
+      "id": "d15a",
+      "taskName": "123456",
+      "asignDate": "2025-10-07",
+      "projectId": "proj-001",
+      "assigneeId": "3378",
+      "dueDate": "2025-10-10",
+      "priority": "Medium",
+      "status": "In Progress",
+      "progress": "On schedule"
+    },
+    {
+      "id": "dbdd",
+      "taskName": "task",
+      "asignDate": "2025-10-07",
+      "projectId": "proj-002",
+      "assigneeId": "3378",
+      "dueDate": "2025-10-09",
+      "priority": "High",
+      "status": "Pending",
+      "progress": "Delayed"
     }
   ],
   "project": [
@@ -71,7 +88,12 @@
       "projectName": "Hệ thống đặt lịch khám bệnh",
       "image": "https://example.com/images/project2.png",
       "description": "Ứng dụng hỗ trợ bệnh nhân đặt lịch khám bệnh trực tuyến tại các cơ sở y tế, tiết kiệm thời gian và nâng cao hiệu quả quản lý lịch khám.",
-      "members": []
+      "members": [
+        {
+          "userId": "3378",
+          "role": "123123"
+        }
+      ]
     }
   ]
 }

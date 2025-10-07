@@ -1,14 +1,15 @@
-import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function Header() {
+  const [userId, setUserId] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
   useEffect(() => {
-    const userLocal = JSON.parse(localStorage.getItem("user") || "[]");
-    if (userLocal.length === 0) navigate("/");
+    const { id } = JSON.parse(localStorage.getItem("user") || "[]");
+    if (id === undefined) navigate("/");
+    setUserId(id);
   });
   const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <div
@@ -33,7 +34,9 @@ export default function Header() {
               ? "btn btn-link text-decoration-none text-secondary"
               : "btn btn-link text-decoration-none text-white"
           }
-          onClick={() => navigate("personal-mission")}
+          onClick={() =>
+            navigate(`/team-management/personal-mission/${userId}`)
+          }
         >
           Nhiệm Vụ của tôi
         </button>

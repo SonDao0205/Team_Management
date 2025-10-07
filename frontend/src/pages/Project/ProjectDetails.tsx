@@ -133,12 +133,12 @@ export default function ProjectDetails() {
               </button>
             </div>
             <div className="d-flex gap-4 justify-content-between align-items-start">
-              {/* Mỗi user item chỉ render tối đa 2 member */}
+              {/* chỉ render ra bên ngoài 2 member */}
               {members.slice(0, 2).map((member) => (
                 <div
                   key={member.id}
-                  className="d-flex flex-column align-items-center text-center"
-                  style={{ width: "80px" }}
+                  className="d-flex flex-row align-items-center text-center gap-2"
+                  style={{ width: "fit-content" }}
                 >
                   <img
                     src={
@@ -153,17 +153,19 @@ export default function ProjectDetails() {
                       objectFit: "cover",
                     }}
                   />
-                  <div
-                    style={{
-                      fontWeight: 600,
-                      fontSize: "13px",
-                      marginTop: "4px",
-                    }}
-                  >
-                    {member.fullname}
-                  </div>
-                  <div style={{ fontSize: "12px", color: "gray" }}>
-                    {member.role}
+                  <div className="d-flex flex-column text-start">
+                    <div
+                      style={{
+                        fontWeight: 600,
+                        fontSize: "13px",
+                        marginTop: "4px",
+                      }}
+                    >
+                      {member.fullname}
+                    </div>
+                    <div style={{ fontSize: "12px", color: "gray" }}>
+                      {member.role}
+                    </div>
                   </div>
                 </div>
               ))}

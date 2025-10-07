@@ -74,7 +74,13 @@ export default function Login() {
     event.preventDefault();
     if (!validate()) return;
     toast.success("Đăng nhập thành công!");
-    localStorage.setItem("user", JSON.stringify(input));
+
+    const exist = data.find(
+      (element) =>
+        element.email === input.email && element.password === input.password
+    );
+
+    localStorage.setItem("user", JSON.stringify(exist));
     setInput(initInput);
     navigate("/team-management");
   };

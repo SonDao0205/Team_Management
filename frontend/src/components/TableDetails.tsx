@@ -53,7 +53,9 @@ export default function TableDetails({
             }}
             onClick={() => setOpenTodo(!openTodo)}
           >
-            <td colSpan={7}>{openTodo ? "▼" : "▶"} To do</td>
+            <td style={{ padding: "12px" }} colSpan={7}>
+              {openTodo ? "▼" : "▶"} To do
+            </td>
           </tr>
           {openTodo &&
             (tasksByStatus["To do"].length > 0 ? (
@@ -144,7 +146,9 @@ export default function TableDetails({
             }}
             onClick={() => setOpenInProgress(!openInProgress)}
           >
-            <td colSpan={7}>{openInProgress ? "▼" : "▶"} In Progress</td>
+            <td style={{ padding: "12px" }} colSpan={7}>
+              {openInProgress ? "▼" : "▶"} In Progress
+            </td>
           </tr>
           {openInProgress &&
             (tasksByStatus["In Progress"].length > 0 ? (
@@ -235,7 +239,9 @@ export default function TableDetails({
             }}
             onClick={() => setOpenPending(!openPending)}
           >
-            <td colSpan={7}>{openPending ? "▼" : "▶"} Pending</td>
+            <td style={{ padding: "12px" }} colSpan={7}>
+              {openPending ? "▼" : "▶"} Pending
+            </td>
           </tr>
           {openPending &&
             (tasksByStatus["Pending"].length > 0 ? (
@@ -326,7 +332,9 @@ export default function TableDetails({
             }}
             onClick={() => setOpenDone(!openDone)}
           >
-            <td colSpan={7}>{openDone ? "▼" : "▶"} Done</td>
+            <td style={{ padding: "12px" }} colSpan={7}>
+              {openDone ? "▼" : "▶"} Done
+            </td>
           </tr>
           {openDone &&
             (tasksByStatus["Done"].length > 0 ? (

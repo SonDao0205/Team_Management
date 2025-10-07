@@ -114,7 +114,7 @@ export default function ProjectDetails() {
           <h4>{project?.projectName}</h4>
           <div className="d-flex gap-2">
             <img
-              style={{ width: "300px" }}
+              style={{ width: "200px" }}
               src={String(project?.image)}
               alt={project?.projectName}
             />

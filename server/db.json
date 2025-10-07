@@ -73,15 +73,16 @@
   "project": [
     {
       "id": "proj-001",
-      "projectName": "Quản lý công việc nội ngoại",
-      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1759416832/xvadoh1dwonrhdevefbx.png",
+      "projectName": "Hệ thống quản lý nội bộ",
+      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1759845360/xubv1snhslov2tqmvbi8.png",
       "description": "Hệ thống giúp quản lý và phân chia công việc trong gia đình, bao gồm các công việc trong nhà và ngoài trời một cách hiệu quả.",
       "members": [
         {
           "userId": "3378",
           "role": "123"
         }
-      ]
+      ],
+      "": "Hệ thống giúp quản lý và phân chia công việc trong gia đình, bao gồm các công việc trong nhà và ngoài trời một cách hiệu quả.d"
     },
     {
       "id": "proj-002",

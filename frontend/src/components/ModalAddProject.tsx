@@ -90,7 +90,9 @@ export default function ModalAddProject({
     event.preventDefault();
     if (!isUploading) {
       if (!validate()) return;
-      toast.success("Thêm dự án thành công!");
+      toast.success(
+        editId ? "Sửa dự án thành công!" : "Thêm dự án thành công!"
+      );
       handleAddProject(newProject);
       setNewProject(initProject);
       setError(initErrorProject);
@@ -159,6 +161,7 @@ export default function ModalAddProject({
               <textarea
                 className="form-control"
                 id="desciption"
+                name="description"
                 style={{ height: "100px" }}
                 value={newProject.description}
                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>

@@ -93,11 +93,6 @@ export default function ModalAddTask({
       isValid = false;
     }
 
-    if (newTask.assigneeId === "none") {
-      newError.assigneeIdError = "Bạn cần chọn người phụ trách!";
-      isValid = false;
-    }
-
     if (newTask.progress === "none") {
       newError.progressError = "Bạn cần chọn tiến độ!";
       isValid = false;
@@ -108,8 +103,17 @@ export default function ModalAddTask({
       isValid = false;
     }
 
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split("T")[0];
+
     if (newTask.asignDate.trim().length === 0) {
       newError.asignDateError = "Bạn cần chọn ngày bắt đầu!";
+      isValid = false;
+    } else if (newTask.asignDate > formattedDate) {
+      newError.asignDateError = "Ngày bắt đầu phải nhỏ hơn ngày hiện tại!";
+      isValid = false;
+    } else if (newTask.asignDate > newTask.dueDate) {
+      newError.asignDateError = "Ngày bắt đầu phải nhỏ hơn ngày kết thúc!";
       isValid = false;
     }
 
@@ -161,7 +165,11 @@ export default function ModalAddTask({
               <label htmlFor="taskName">Tên nhiệm vụ</label>
               <input
                 type="text"
-                className="form-control"
+                className={
+                  error.taskNameError
+                    ? "form-control border-danger"
+                    : "form-control"
+                }
                 name="taskName"
                 id="taskName"
                 placeholder="Nhập tên nhiệm vụ"
@@ -194,7 +202,11 @@ export default function ModalAddTask({
             <div>
               <label htmlFor="status">Trạng thái</label>
               <select
-                className="form-select"
+                className={
+                  error.statusError !== "none"
+                    ? "form-select border-danger"
+                    : "form-select"
+                }
                 name="status"
                 id="status"
                 value={newTask.status}
@@ -211,33 +223,54 @@ export default function ModalAddTask({
                 <option value="Pending">Pending</option>
                 <option value="Done">Done</option>
               </select>
+              {error.statusError !== "none" && (
+                <p className="text-danger">{error.statusError}</p>
+              )}
             </div>
             <div>
               <label htmlFor="asignDate">Ngày bắt đầu</label>
               <input
-                className="form-control"
+                className={
+                  error.asignDateError
+                    ? "form-control border-danger"
+                    : "form-control"
+                }
                 type="date"
                 name="asignDate"
                 id="asignDate"
                 value={newTask.asignDate}
                 onChange={handleInput}
               />
+              {error.asignDateError && (
+                <p className="text-danger">{error.asignDateError}</p>
+              )}
             </div>
             <div>
               <label htmlFor="dueDate">Hạn chót</label>
               <input
-                className="form-control"
+                className={
+                  error.dueDateError
+                    ? "form-control border-danger"
+                    : "form-control"
+                }
                 type="date"
                 name="dueDate"
                 id="dueDate"
                 value={newTask.dueDate}
                 onChange={handleInput}
               />
+              {error.dueDateError && (
+                <p className="text-danger">{error.dueDateError}</p>
+              )}
             </div>
             <div>
               <label htmlFor="priority">Độ ưu tiên</label>
               <select
-                className="form-select"
+                className={
+                  error.priorityError !== "none"
+                    ? "form-select border-danger"
+                    : "form-select"
+                }
                 name="priority"
                 id="priority"
                 value={newTask.priority}
@@ -253,11 +286,18 @@ export default function ModalAddTask({
                 <option value="Medium">Trung bình</option>
                 <option value="High">Cao</option>
               </select>
+              {error.priorityError !== "none" && (
+                <p className="text-danger">{error.priorityError}</p>
+              )}
             </div>
             <div>
               <label htmlFor="progress">Tiến độ</label>
               <select
-                className="form-select"
+                className={
+                  error.progressError !== "none"
+                    ? "form-select border-danger"
+                    : "form-select"
+                }
                 name="progress"
                 id="progress"
                 value={newTask.progress}
@@ -273,6 +313,9 @@ export default function ModalAddTask({
                 <option value="At risk">Có rủi ro</option>
                 <option value="Delayed">Trễ hạn</option>
               </select>
+              {error.progressError !== "none" && (
+                <p className="text-danger">{error.progressError}</p>
+              )}
             </div>
           </div>
           <div className="d-flex justify-content-end gap-3 p-2">

@@ -48,3 +48,27 @@ export const updateTask = createAsyncThunk(
     }
   }
 );
+
+export const updateStatus = createAsyncThunk(
+  "tasks/updateStatus",
+  async (taskId: string) => {
+    try {
+      const { data: task } = await axios.get(`${API_TASK}/${taskId}`);
+
+      let newStatus =
+        task.status === "In Progress"
+          ? "Pending"
+          : task.status === "Pending"
+            ? "In Progress"
+            : task.status;
+
+      const res = await axios.patch(`${API_TASK}/${taskId}`, {
+        status: newStatus,
+      });
+
+      return res.data;
+    } catch (error) {
+      console.log("Update Status Error:", error);
+    }
+  }
+);

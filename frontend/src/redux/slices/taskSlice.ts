@@ -4,6 +4,7 @@ import {
   addTask,
   deleteTask,
   getAllTask,
+  updateStatus,
   updateTask,
 } from "../../apis/task.api";
 
@@ -91,6 +92,15 @@ const taskSlice = createSlice({
         if (index !== -1) {
           state.data[index] = action.payload;
           state.allData[index] = action.payload;
+        }
+      })
+      .addCase(updateStatus.fulfilled, (state, action) => {
+        const { id, status } = action.payload;
+        if (!id) return;
+        const index = state.data.findIndex((element) => element.id === id);
+        if (index !== -1) {
+          state.data[index].status = status;
+          state.allData[index] = status;
         }
       });
   },

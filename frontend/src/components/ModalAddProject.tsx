@@ -110,6 +110,8 @@ export default function ModalAddProject({
       handleAddProject(newProject);
       setNewProject(initProject);
       setError(initErrorProject);
+    } else {
+      toast.warning("Đang upload ảnh, vui lòng chờ!");
     }
   };
 

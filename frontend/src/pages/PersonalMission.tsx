@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 
 export default function PersonalMission() {
   const { id } = useParams();
-  console.log(id);
 
   const dispatch = useAppDispatch();
 

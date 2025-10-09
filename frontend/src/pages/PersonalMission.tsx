@@ -6,11 +6,11 @@ import { getAllProjects } from "../apis/project.api";
 import type { Task } from "../interfaces";
 import { getAllUsers } from "../apis/auth.api";
 import ModalUpdateStatus from "../components/ModalUpdateStatus";
-import EditSquareIcon from "@mui/icons-material/EditSquare";
 import { toast } from "react-toastify";
 
 export default function PersonalMission() {
   const { id } = useParams();
+  console.log(id);
 
   const dispatch = useAppDispatch();
 
@@ -190,7 +190,7 @@ export default function PersonalMission() {
                           className="btn btn-link text-black text-decoration-none d-flex align-items-center gap-1"
                           onClick={() => {
                             if (
-                              task.status === "To do" ||
+                              task.status === `To do` ||
                               task.status === "Done"
                             )
                               toast.error(

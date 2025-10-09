@@ -11,6 +11,30 @@
       "fullname": "sơn đào",
       "email": "sondao1@gmail.com",
       "password": "123123123"
+    },
+    {
+      "id": "7a2a",
+      "fullname": "đào sơn",
+      "email": "sondao2@gmail.com",
+      "password": "123123123"
+    },
+    {
+      "id": "319b",
+      "fullname": "trường sơn",
+      "email": "sondao3@gmail.com",
+      "password": "123123123"
+    },
+    {
+      "id": "9b8c",
+      "fullname": "sơn",
+      "email": "sondao4@gmail.com",
+      "password": "123123123"
+    },
+    {
+      "id": "a5df",
+      "fullname": "son123",
+      "email": "sondao5@gmail.com",
+      "password": "123123123"
     }
   ],
   "task": [
@@ -68,6 +92,28 @@
       "priority": "High",
       "status": "In Progress",
       "progress": "Delayed"
+    },
+    {
+      "id": "9a68",
+      "taskName": "frontend task",
+      "asignDate": "2025-10-09",
+      "projectId": "proj-001",
+      "assigneeId": "3378",
+      "dueDate": "2025-10-11",
+      "priority": "Low",
+      "status": "In Progress",
+      "progress": "On schedule"
+    },
+    {
+      "id": "053c",
+      "taskName": "frontend task 2",
+      "asignDate": "2025-10-09",
+      "projectId": "proj-001",
+      "assigneeId": "3378",
+      "dueDate": "2025-10-11",
+      "priority": "Medium",
+      "status": "Pending",
+      "progress": "On schedule"
     }
   ],
   "project": [
@@ -78,11 +124,14 @@
       "description": "Hệ thống giúp quản lý và phân chia công việc trong gia đình, bao gồm các công việc trong nhà và ngoài trời một cách hiệu quả.",
       "members": [
         {
+          "userId": "3af0",
+          "role": "project owner"
+        },
+        {
           "userId": "3378",
-          "role": "123"
+          "role": "frontend"
         }
-      ],
-      "": "Hệ thống giúp quản lý và phân chia công việc trong gia đình, bao gồm các công việc trong nhà và ngoài trời một cách hiệu quả.d"
+      ]
     },
     {
       "id": "proj-002",
@@ -92,7 +141,31 @@
       "members": [
         {
           "userId": "3378",
-          "role": "123123"
+          "role": "project owner"
+        }
+      ]
+    },
+    {
+      "id": "c0fd",
+      "projectName": "test",
+      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1759910228/qw4alsp5c5qzfuqiwoxv.png",
+      "description": "dự án test",
+      "members": [
+        {
+          "userId": "3378",
+          "role": "project owner"
+        }
+      ]
+    },
+    {
+      "id": "3aad",
+      "projectName": "test 2",
+      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1759971728/zol7r9subosyznbm1gc6.png",
+      "description": "test 2 mo ta",
+      "members": [
+        {
+          "userId": "3378",
+          "role": "project owner"
         }
       ]
     }

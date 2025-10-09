@@ -28,7 +28,7 @@ export type Project = {
   id: string;
   projectName: string;
   image: string | null;
-  description?: string;
+  description: string;
   members: Members[];
 };
 
@@ -38,6 +38,7 @@ export type AuthType = {
   data: User[];
   allData: User[];
   error: string | undefined;
+  currentUser: User | null;
 };
 
 export type ProjectType = {
@@ -65,6 +66,7 @@ export type Error = {
 export type ErrorProject = {
   projectNameError: string | undefined;
   imageError: string | undefined;
+  descriptionError: string | undefined;
 };
 
 //Init object
@@ -102,4 +104,5 @@ export const initError: Error = {
 export const initErrorProject: ErrorProject = {
   projectNameError: undefined,
   imageError: undefined,
+  descriptionError: undefined,
 };

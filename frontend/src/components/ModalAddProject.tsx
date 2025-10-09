@@ -38,13 +38,22 @@ export default function ModalAddProject({
     const newError: ErrorProject = {
       projectNameError: undefined,
       imageError: undefined,
+      descriptionError: undefined,
     };
     if (newProject.projectName.trim().length === 0) {
       newError.projectNameError = "Bạn cần nhập tên dự án!";
+    } else if (newProject.projectName.trim().length <= 3) {
+      newError.projectNameError = "Tên dự án quá ngắn, không hợp lệ!";
     }
 
     if (newProject.image?.trim().length === 0) {
       newError.imageError = "Bạn cần thêm ảnh dự án!";
+    }
+
+    if (newProject.description.trim().length === 0) {
+      newError.descriptionError = "Bạn cần nhập mô tả dự án!";
+    } else if (newProject.description.trim().length <= 3) {
+      newError.descriptionError = "Mô tả dự án quá ngắn, không hợp lệ!";
     }
 
     const exist = data.find(
@@ -59,6 +68,12 @@ export default function ModalAddProject({
     return Object.values(newError).every((value) => value === undefined);
   };
 
+  useEffect(() => {
+    if (isUploading)
+      setError({ ...error, imageError: "Đang upload ảnh, vui lòng chờ!" });
+    else setError({ ...error, imageError: undefined });
+  }, [isUploading]);
+
   const handleUploadImage = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -69,7 +84,6 @@ export default function ModalAddProject({
       const formData = new FormData();
       formData.append("file", selectedFile);
       formData.append("upload_preset", "sondao1");
-
       try {
         const res = await axios.post(
           `https://api.cloudinary.com/v1_1/dq87endkv/image/upload`,
@@ -96,8 +110,6 @@ export default function ModalAddProject({
       handleAddProject(newProject);
       setNewProject(initProject);
       setError(initErrorProject);
-    } else {
-      toast.warning("Đang upload ảnh, vui lòng chờ...");
     }
   };
 
@@ -159,7 +171,11 @@ export default function ModalAddProject({
             <div>
               <label htmlFor="desciption">Mô tả dự án</label>
               <textarea
-                className="form-control"
+                className={
+                  error.descriptionError
+                    ? "form-control border-danger"
+                    : "form-control"
+                }
                 id="desciption"
                 name="description"
                 style={{ height: "100px" }}
@@ -171,10 +187,18 @@ export default function ModalAddProject({
                   })
                 }
               ></textarea>
+              {error.descriptionError && (
+                <p className="text-danger">{error.descriptionError}</p>
+              )}
             </div>
           </div>
           <div className="d-flex justify-content-end gap-3 p-2">
-            <button className="btn btn-secondary" onClick={handleToggleModal}>
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                handleToggleModal();
+              }}
+            >
               Huỷ
             </button>
             <button type="submit" className="btn btn-primary">

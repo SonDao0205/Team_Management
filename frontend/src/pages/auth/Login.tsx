@@ -4,6 +4,7 @@ import { getAllUsers } from "../../apis/auth.api";
 import { useAppDispatch, useAppSelector } from "../../hooks/CustomHook";
 import type { Error } from "../../interfaces";
 import { toast } from "react-toastify";
+import { loginSuccess } from "../../redux/slices/authSlice";
 
 const initInput = {
   email: "",
@@ -21,14 +22,15 @@ export default function Login() {
   const navigate = useNavigate();
   const [input, setInput] = useState(initInput);
   const [error, setError] = useState<Error>(initError);
-  const { data } = useAppSelector((state) => state.authSlice);
+  const { data, currentUser } = useAppSelector((state) => state.authSlice);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllUsers());
-    const userLocal = JSON.parse(localStorage.getItem("user") || "[]");
-    if (userLocal.length !== 0) navigate("/team-management");
-  }, []);
+    if (currentUser) {
+      navigate("/team-management");
+    }
+  }, [currentUser]);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -47,22 +49,24 @@ export default function Login() {
     };
 
     if (input.email.trim().length === 0) {
-      newError.emailError = "Bạn cần nhập email!";
+      newError.emailError = "Email không được để trống!";
     }
 
     if (input.password.trim().length === 0) {
-      newError.passwordError = "Bạn cần nhập mật khẩu!";
+      newError.passwordError = "Mật khẩu không được để trống!";
     }
 
-    const exist = data.some(
-      (element) =>
-        element.email === input.email && element.password === input.password
-    );
+    if (input.email.trim().length !== 0 && input.password.trim().length !== 0) {
+      const exist = data.some(
+        (element) =>
+          element.email === input.email && element.password === input.password
+      );
 
-    if (!exist) {
-      newError.emailError = "Email hoặc mật khẩu không chính xác!";
-      newError.passwordError = "Email hoặc mật khẩu không chính xác!";
-      toast.error("Đăng nhập thất bại!");
+      if (!exist) {
+        newError.emailError = "Email hoặc mật khẩu không chính xác!";
+        newError.passwordError = "Email hoặc mật khẩu không chính xác!";
+        toast.error("Đăng nhập thất bại!");
+      }
     }
 
     setError(newError);
@@ -79,8 +83,8 @@ export default function Login() {
       (element) =>
         element.email === input.email && element.password === input.password
     );
-
-    localStorage.setItem("user", JSON.stringify(exist));
+    if (exist) localStorage.setItem("user", JSON.stringify(exist.id));
+    dispatch(loginSuccess(exist));
     setInput(initInput);
     navigate("/team-management");
   };
@@ -97,30 +101,19 @@ export default function Login() {
           <div>
             <label htmlFor="email">Email</label>
             <input
-              className={
-                error.emailError
-                  ? "form-control text-center p-3 border-danger"
-                  : "form-control text-center p-3"
-              }
-              type="text"
+              className="form-control text-center p-3"
+              type="email"
               name="email"
               id="email"
               placeholder="Địa chỉ email"
               value={input.email}
               onChange={handleInput}
             />
-            {error.emailError && (
-              <p className="text-danger">{error.emailError}</p>
-            )}
           </div>
           <div>
             <label htmlFor="password">Mật khẩu</label>
             <input
-              className={
-                error.passwordError
-                  ? "form-control text-center p-3 border-danger"
-                  : "form-control text-center p-3"
-              }
+              className="form-control text-center p-3"
               type="password"
               name="password"
               id="password"
@@ -128,10 +121,10 @@ export default function Login() {
               value={input.password}
               onChange={handleInput}
             />
-            {error.passwordError && (
-              <p className="text-danger">{error.passwordError}</p>
-            )}
           </div>
+          {error.emailError && (
+            <p className="text-danger">{error.emailError}</p>
+          )}
           <button type="submit" className="btn btn-primary p-3">
             Đăng nhập
           </button>

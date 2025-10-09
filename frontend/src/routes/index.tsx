@@ -5,6 +5,7 @@ import TeamManagement from "../layouts/TeamManagement";
 import ProjectManagement from "../pages/Project/ProjectManagement";
 import ProjectDetails from "../pages/Project/ProjectDetails";
 import PersonalMission from "../pages/PersonalMission";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export const routers = createBrowserRouter([
   {
@@ -17,23 +18,16 @@ export const routers = createBrowserRouter([
   },
   {
     path: "/team-management",
-    element: <TeamManagement />,
+    element: <ProtectedRoute />,
     children: [
       {
-        index: true,
-        element: <ProjectManagement />,
-      },
-      {
-        path: "projects",
-        element: <ProjectManagement />,
-      },
-      {
-        path: "projects/:id",
-        element: <ProjectDetails />,
-      },
-      {
-        path: "personal-mission/:id",
-        element: <PersonalMission />,
+        element: <TeamManagement />,
+        children: [
+          { index: true, element: <ProjectManagement /> },
+          { path: "projects", element: <ProjectManagement /> },
+          { path: "projects/:id", element: <ProjectDetails /> },
+          { path: "personal-mission/:id", element: <PersonalMission /> },
+        ],
       },
     ],
   },

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks/CustomHook";
+import { logOut } from "../redux/slices/authSlice";
 
 export default function Header() {
   const [userId, setUserId] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    const { id } = JSON.parse(localStorage.getItem("user") || "[]");
-    if (id === undefined) navigate("/");
-    setUserId(id);
+    const user = JSON.parse(localStorage.getItem("user") || "[]");
+    if (user) setUserId(user);
   });
   const location = useLocation();
 
@@ -43,6 +45,7 @@ export default function Header() {
         <button
           className="btn btn-link text-decoration-none text-white"
           onClick={() => {
+            dispatch(logOut());
             localStorage.removeItem("user");
             navigate("/");
           }}

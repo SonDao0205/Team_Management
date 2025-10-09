@@ -39,12 +39,13 @@ export default function Register() {
 
     if (newUser.email.trim().length === 0) {
       newError.emailError = "Bạn cần nhập email!";
+    } else if (!newUser.email.trim().endsWith("@gmail.com")) {
+      newError.emailError = "Bạn cần nhập đúng định dạng email!";
     }
 
     if (newUser.password.trim().length === 0) {
       newError.passwordError = "Bạn cần nhập mật khẩu!";
-    }
-    if (newUser.password.trim().length < 8) {
+    } else if (newUser.password.trim().length < 8) {
       newError.passwordError = "Bạn cần nhập mật khẩu tối thiểu 8 ký tự!";
     }
 

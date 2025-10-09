@@ -6,7 +6,7 @@ import {
   getAllProjects,
   updateProject,
 } from "../../apis/project.api";
-import type { Project } from "../../interfaces";
+import type { Project, User } from "../../interfaces";
 import { handleSearchProject } from "../../redux/slices/projectSlice";
 import ModalDelete from "../../components/ModalDelete";
 import { useNavigate } from "react-router-dom";
@@ -15,19 +15,37 @@ export default function ProjectManagement() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((state) => state.projectSlice);
+  const [currentUser, setCurrentUser] = useState<string | undefined>(undefined);
+  const [projectData, setProjectData] = useState<Project[]>([]);
 
   // modal
   const [toggleModal, setToggleModal] = useState(false);
-  const handleToggleModal = () => setToggleModal(!toggleModal);
+  const handleToggleModal = () => {
+    setToggleModal(!toggleModal);
+    if (!toggleModal) setEditId(undefined);
+  };
 
   const [deleteModal, setDeleteModal] = useState(false);
   const handleDeleteModal = () => setDeleteModal(!deleteModal);
   const [deleteId, setDeleteId] = useState<string | undefined>(undefined);
-
   // data
   useEffect(() => {
     dispatch(getAllProjects());
+    const user = JSON.parse(localStorage.getItem("user") || "[]");
+    if (user) setCurrentUser(user);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!data || !currentUser) return;
+    setProjectData(
+      data.filter((project) =>
+        project.members?.some(
+          (member) =>
+            member.userId === currentUser && member.role === "project owner"
+        )
+      )
+    );
+  }, [data, currentUser]);
 
   // search
   const [searchInput, setSearchInput] = useState("");
@@ -40,11 +58,24 @@ export default function ProjectManagement() {
   };
 
   const handleAddProject = (newProject: Omit<Project, "id">) => {
-    if (editId) {
-      dispatch(updateProject({ ...newProject, id: editId }));
+    if (!currentUser) return;
+
+    if (!editId) {
+      const projectWithOwner: Omit<Project, "id"> = {
+        ...newProject,
+        members: [
+          {
+            userId: currentUser,
+            role: "project owner",
+          },
+        ],
+      };
+
+      dispatch(addProject(projectWithOwner));
     } else {
-      dispatch(addProject(newProject));
+      dispatch(updateProject({ ...newProject, id: editId }));
     }
+
     setToggleModal(false);
   };
 
@@ -52,10 +83,10 @@ export default function ProjectManagement() {
   const itemsPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(projectData.length / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentData = data.slice(startIndex, startIndex + itemsPerPage);
+  const currentData = projectData.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);

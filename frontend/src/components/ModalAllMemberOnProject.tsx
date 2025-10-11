@@ -48,6 +48,8 @@ export default function ModalAllMemberOnProject({
     setToggleModal(toggleModal ? false : true);
   };
 
+  const handleDeleteMember = (id: string) => {};
+
   return (
     <div>
       <div className="overlay" onClick={handleToggleAllMembers}></div>
@@ -105,8 +107,12 @@ export default function ModalAllMemberOnProject({
                         <button
                           className="btn btn-link text-danger p-0"
                           onClick={() => {
-                            handleToggleModal();
-                            setDeleteId(member.id);
+                            if (member.role === "project owner") {
+                              toast.warning("Bạn không thể xoá Project Owner!");
+                            } else {
+                              handleToggleModal();
+                              setDeleteId(member.id);
+                            }
                           }}
                         >
                           <i

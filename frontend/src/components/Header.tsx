@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/CustomHook";
 import { logOut } from "../redux/slices/authSlice";
+import Swal from "sweetalert2";
 
 export default function Header() {
   const [userId, setUserId] = useState<string | undefined>(undefined);
@@ -45,9 +46,21 @@ export default function Header() {
         <button
           className="btn btn-link text-decoration-none text-white"
           onClick={() => {
-            dispatch(logOut());
-            localStorage.removeItem("user");
-            navigate("/");
+            Swal.fire({
+              title: "Bạn có chắc chắn muốn đăng xuất không?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Đăng xuất",
+              cancelButtonText: "Huỷ",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                dispatch(logOut());
+                localStorage.removeItem("user");
+                navigate("/");
+              }
+            });
           }}
         >
           Đăng Xuất

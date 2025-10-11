@@ -25,11 +25,13 @@ export default function ModalAddProject({
     useState<Omit<Project, "id">>(initProject);
   const [error, setError] = useState<ErrorProject>(initErrorProject);
   const [isUploading, setIsUploading] = useState(false);
+  const [imageEditId, setImageEditId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!editId) return;
     const findProject = data.find((element) => element.id === editId);
     if (!findProject) return;
+    setImageEditId(findProject.image);
     setNewProject(findProject);
   }, [editId]);
 
@@ -45,9 +47,10 @@ export default function ModalAddProject({
     } else if (newProject.projectName.trim().length <= 3) {
       newError.projectNameError = "Tên dự án quá ngắn, không hợp lệ!";
     }
-
-    if (newProject.image?.trim().length === 0) {
-      newError.imageError = "Bạn cần thêm ảnh dự án!";
+    if (!editId) {
+      if (newProject.image?.trim().length === 0) {
+        newError.imageError = "Bạn cần thêm ảnh dự án!";
+      }
     }
 
     if (newProject.description.trim().length === 0) {
@@ -57,7 +60,8 @@ export default function ModalAddProject({
     }
 
     const exist = data.find(
-      (element) => element.projectName === newProject.projectName
+      (element) =>
+        element.projectName === newProject.projectName && element.id !== editId
     );
 
     if (exist) {
@@ -77,6 +81,7 @@ export default function ModalAddProject({
   const handleUploadImage = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setImageEditId(null);
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setIsUploading(true);
@@ -166,6 +171,27 @@ export default function ModalAddProject({
                 name="image"
                 onChange={handleUploadImage}
               ></input>
+              {imageEditId && (
+                <img
+                  src={imageEditId}
+                  style={{
+                    width: "150px",
+                    border: "1px solid black",
+                    marginTop: "10px",
+                  }}
+                />
+              )}
+
+              {newProject.image !== imageEditId && newProject.image && (
+                <img
+                  src={newProject.image}
+                  style={{
+                    width: "150px",
+                    border: "1px solid black",
+                    marginTop: "10px",
+                  }}
+                />
+              )}
               {error.imageError && (
                 <p className="text-danger">{error.imageError}</p>
               )}

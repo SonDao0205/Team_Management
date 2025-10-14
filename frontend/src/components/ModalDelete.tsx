@@ -43,8 +43,11 @@ export default function ModalDelete({
 
   return (
     <div>
-      <div className="overlay"></div>
-      <div className="modal-container border border-secondary rounded p-2">
+      <div className="overlay" style={{ zIndex: "1001" }}></div>
+      <div
+        className="modal-container border border-secondary rounded p-2"
+        style={{ top: "20%" }}
+      >
         <header className="d-flex justify-content-between border-bottom mb-3 p-2">
           <h4>Xác nhận xoá</h4>
           <button

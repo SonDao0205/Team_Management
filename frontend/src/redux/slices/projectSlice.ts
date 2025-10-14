@@ -22,15 +22,14 @@ const projectSlice = createSlice({
   initialState,
   reducers: {
     handleSearchProject: (state, action) => {
-      if (action.payload.trim()) {
-        state.data = state.allData.filter((element) =>
-          element.projectName
-            .toLowerCase()
-            .includes(action.payload.trim().toLowerCase())
-        );
-      } else {
+      const value = action.payload.trim().toLowerCase();
+      if (!value) {
         state.data = state.allData;
+        return;
       }
+      state.data = state.allData.filter((element) =>
+        element.projectName.toLowerCase().includes(value)
+      );
     },
   },
   extraReducers(builder) {

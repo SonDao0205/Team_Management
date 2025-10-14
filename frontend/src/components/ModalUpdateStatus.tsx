@@ -26,7 +26,10 @@ export default function ModalUpdateStatus({
   return (
     <div>
       <div className="overlay"></div>
-      <div className="modal-container border border-secondary rounded p-2">
+      <div
+        className="modal-container border border-secondary rounded p-2"
+        style={{ top: "20%" }}
+      >
         <header className="d-flex justify-content-between border-bottom mb-3 p-2">
           <h4>Cập nhật trạng thái</h4>
           <button

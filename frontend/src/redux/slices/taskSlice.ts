@@ -20,7 +20,6 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     handleSearchTask: (state, action) => {
-      state.data = [...state.allData];
       const value = action.payload.trim().toLowerCase();
       if (!value) {
         state.data = [...state.allData];

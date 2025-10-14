@@ -6,7 +6,7 @@ import {
   getAllProjects,
   updateProject,
 } from "../../apis/project.api";
-import type { Project, User } from "../../interfaces";
+import type { Project } from "../../interfaces";
 import { handleSearchProject } from "../../redux/slices/projectSlice";
 import ModalDelete from "../../components/ModalDelete";
 import { useNavigate } from "react-router-dom";

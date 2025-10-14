@@ -47,9 +47,6 @@ export default function ModalAllMemberOnProject({
   const handleToggleModal = () => {
     setToggleModal(toggleModal ? false : true);
   };
-
-  const handleDeleteMember = (id: string) => {};
-
   return (
     <div>
       <div className="overlay" onClick={handleToggleAllMembers}></div>
@@ -95,6 +92,7 @@ export default function ModalAllMemberOnProject({
                         </div>
                       </div>
                     </td>
+                    {/* xoá và sửa role thành viên */}
                     <td>
                       <div className="d-flex align-items-center gap-2">
                         <input
@@ -103,8 +101,15 @@ export default function ModalAllMemberOnProject({
                           id={member.id}
                           defaultValue={member.role}
                           onChange={handleChange}
+                          disabled={member.role === "project owner"}
                         />
                         <button
+                          style={{
+                            visibility:
+                              member.role === "project owner"
+                                ? "hidden"
+                                : "visible",
+                          }}
                           className="btn btn-link text-danger p-0"
                           onClick={() => {
                             if (member.role === "project owner") {

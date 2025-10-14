@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/CustomHook";
 import { addUser, getAllUsers } from "../../apis/auth.api";
 import { toast } from "react-toastify";
+import { loginSuccess } from "../../redux/slices/authSlice";
 
 export default function Register() {
   const [newUser, setNewUser] = useState<Omit<User, "id">>(initUser);
@@ -13,8 +14,12 @@ export default function Register() {
   const { data } = useAppSelector((state) => state.authSlice);
   const dispatch = useAppDispatch();
 
+  const fetchData = async () => {
+    await dispatch(getAllUsers());
+  };
+
   useEffect(() => {
-    dispatch(getAllUsers());
+    fetchData();
   }, []);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,15 +70,27 @@ export default function Register() {
     return Object.values(newError).every((value) => value === undefined);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validate()) return;
 
-    dispatch(addUser(newUser));
-    toast.success("Đăng ký thành công!");
-    setNewUser(initUser);
-    setConfirmPassword("");
-    navigate("/");
+    try {
+      const action = await dispatch(addUser(newUser));
+      const createdUser = action.payload;
+      if (createdUser && createdUser.id) {
+        localStorage.setItem("user", JSON.stringify(createdUser.id));
+        dispatch(loginSuccess(createdUser));
+        toast.success("Đăng ký thành công!");
+        setNewUser(initUser);
+        setConfirmPassword("");
+        navigate("/team-management");
+      } else {
+        toast.error("Đăng ký thất bại, vui lòng thử lại!");
+      }
+    } catch (error) {
+      console.error("Register error:", error);
+      toast.error("Đăng ký thất bại!");
+    }
   };
 
   return (

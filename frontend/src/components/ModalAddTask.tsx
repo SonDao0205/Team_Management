@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/CustomHook";
 import { getAllProjects } from "../apis/project.api";
 import { getAllUsers } from "../apis/auth.api";
 import { addTask, getAllTask, updateTask } from "../apis/task.api";
+import { toast } from "react-toastify";
 
 type Props = {
   handleToggleModalAddTask: () => void;
@@ -76,7 +77,8 @@ export default function ModalAddTask({
     if (newTask.taskName.trim().length === 0) {
       newError.taskNameError = "Bạn cần nhập tên nhiệm vụ!";
       isValid = false;
-    } else {
+    }
+    if (editId === undefined) {
       const exist = tasksData.find(
         (element) =>
           element.taskName.trim().toLowerCase() ===
@@ -136,14 +138,16 @@ export default function ModalAddTask({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!validate()) return;
     if (editId !== undefined) {
       dispatch(updateTask({ ...newTask, id: editId }));
+      toast.success("Sửa nhiệm vụ thành công!");
       setNewTask(initTask);
       handleToggleModalAddTask();
       return;
     }
-    if (!validate()) return;
     dispatch(addTask({ ...newTask, projectId: String(projectId) }));
+    toast.success("Thêm nhiệm vụ thành công!");
     setNewTask(initTask);
     handleToggleModalAddTask();
   };

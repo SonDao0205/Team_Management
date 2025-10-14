@@ -58,14 +58,16 @@ export default function ModalAddProject({
     } else if (newProject.description.trim().length <= 3) {
       newError.descriptionError = "Mô tả dự án quá ngắn, không hợp lệ!";
     }
+    if (editId === undefined) {
+      const exist = data.find(
+        (element) =>
+          element.projectName === newProject.projectName &&
+          element.id !== editId
+      );
 
-    const exist = data.find(
-      (element) =>
-        element.projectName === newProject.projectName && element.id !== editId
-    );
-
-    if (exist) {
-      newError.projectNameError = "Tên dự án đã tồn tại";
+      if (exist) {
+        newError.projectNameError = "Tên dự án đã tồn tại";
+      }
     }
 
     setError(newError);

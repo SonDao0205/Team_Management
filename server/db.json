@@ -1,223 +1,79 @@
 {
   "users": [
     {
-      "id": "3378",
-      "fullname": "Đào Trường Sơn",
+      "id": "c4ae",
+      "fullname": "son 1",
       "email": "sondao@gmail.com",
-      "password": "123123"
-    },
-    {
-      "id": "3af0",
-      "fullname": "sơn đào",
-      "email": "sondao1@gmail.com",
       "password": "123123123"
     },
     {
-      "id": "7a2a",
-      "fullname": "đào sơn",
+      "id": "cdf4",
+      "fullname": "son 2",
       "email": "sondao2@gmail.com",
-      "password": "123123123"
-    },
-    {
-      "id": "319b",
-      "fullname": "trường sơn",
-      "email": "sondao3@gmail.com",
-      "password": "123123123"
-    },
-    {
-      "id": "9b8c",
-      "fullname": "sơn",
-      "email": "sondao4@gmail.com",
-      "password": "123123123"
-    },
-    {
-      "id": "a5df",
-      "fullname": "son123",
-      "email": "sondao5@gmail.com",
       "password": "123123123"
     }
   ],
   "task": [
     {
-      "id": "be93",
-      "taskName": "soạn nội dung nội bộ",
-      "asignDate": "2025-10-06",
-      "projectId": "proj-001",
-      "assigneeId": "3378",
-      "dueDate": "2025-10-08",
+      "id": "c85b",
+      "taskName": "tạo giao diện chung",
+      "asignDate": "2025-10-14",
+      "projectId": "7780",
+      "assigneeId": "c4ae",
+      "dueDate": "2025-10-15",
       "priority": "Low",
       "status": "To do",
       "progress": "On schedule"
     },
     {
-      "id": "12db",
-      "taskName": "123",
-      "asignDate": "2025-10-06",
-      "projectId": "proj-001",
-      "assigneeId": "3378",
-      "dueDate": "2025-10-09",
-      "priority": "Medium",
-      "status": "To do",
-      "progress": "On schedule"
-    },
-    {
-      "id": "00ed",
-      "taskName": "1234",
-      "asignDate": "2025-10-06",
-      "projectId": "proj-001",
+      "id": "76fd",
+      "taskName": "ô tìm kiếm",
+      "asignDate": "2025-10-14",
+      "projectId": "7780",
       "assigneeId": "",
-      "dueDate": "2025-10-07",
-      "priority": "Low",
-      "status": "To do",
+      "dueDate": "2025-10-16",
+      "priority": "Medium",
+      "status": "In Progress",
       "progress": "At risk"
     },
     {
-      "id": "d15a",
-      "taskName": "123456",
-      "asignDate": "2025-10-07",
-      "projectId": "proj-001",
-      "assigneeId": "3378",
-      "dueDate": "2025-10-10",
-      "priority": "Medium",
-      "status": "In Progress",
-      "progress": "On schedule"
-    },
-    {
-      "id": "dbdd",
-      "taskName": "task",
-      "asignDate": "2025-10-07",
-      "projectId": "proj-002",
-      "assigneeId": "3378",
-      "dueDate": "2025-10-09",
+      "id": "d42c",
+      "taskName": "thêm sản phẩm",
+      "asignDate": "2025-10-14",
+      "projectId": "74a2",
+      "assigneeId": "c4ae",
+      "dueDate": "2025-10-15",
       "priority": "High",
-      "status": "In Progress",
-      "progress": "Delayed"
-    },
-    {
-      "id": "9a68",
-      "taskName": "frontend task",
-      "asignDate": "2025-10-09",
-      "projectId": "proj-001",
-      "assigneeId": "3378",
-      "dueDate": "2025-10-11",
-      "priority": "Low",
-      "status": "In Progress",
-      "progress": "On schedule"
-    },
-    {
-      "id": "053c",
-      "taskName": "frontend task 2",
-      "asignDate": "2025-10-09",
-      "projectId": "proj-001",
-      "assigneeId": "3378",
-      "dueDate": "2025-10-11",
-      "priority": "Medium",
-      "status": "Pending",
+      "status": "To do",
       "progress": "On schedule"
     }
   ],
   "project": [
     {
-      "id": "proj-001",
-      "projectName": "Hệ thống quản lý nội bộ",
-      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1759845360/xubv1snhslov2tqmvbi8.png",
-      "description": "Hệ thống giúp quản lý và phân chia công việc trong gia đình, bao gồm các công việc trong nhà và ngoài trời một cách hiệu quả.",
+      "id": "7780",
+      "projectName": "Shopee",
+      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1760456791/thj6vkaexampx0rbkzdj.png",
+      "description": "thương mại điện tử",
       "members": [
         {
-          "userId": "3af0",
+          "userId": "c4ae",
+          "role": "project owner"
+        }
+      ]
+    },
+    {
+      "id": "74a2",
+      "projectName": "Lazada",
+      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1760456896/tv7i11kvydw97nq8ll0u.png",
+      "description": "Thương mại điện tử",
+      "members": [
+        {
+          "userId": "cdf4",
           "role": "project owner"
         },
         {
-          "userId": "3378",
+          "userId": "c4ae",
           "role": "frontend"
-        }
-      ]
-    },
-    {
-      "id": "proj-002",
-      "projectName": "Hệ thống đặt lịch khám bệnh",
-      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1760057141/rfxebpdhbzpme8tgalsd.png",
-      "description": "Ứng dụng hỗ trợ bệnh nhân đặt lịch khám bệnh trực tuyến tại các cơ sở y tế, tiết kiệm thời gian và nâng cao hiệu quả quản lý lịch khám.",
-      "members": [
-        {
-          "userId": "3378",
-          "role": "project owner"
-        },
-        {
-          "userId": "3af0",
-          "role": "hihi"
-        }
-      ]
-    },
-    {
-      "id": "3fa8",
-      "projectName": "test 6",
-      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1760058997/stgdplix95xfohe3p7aa.png",
-      "description": "test 6",
-      "members": [
-        {
-          "userId": "3378",
-          "role": "project owner"
-        }
-      ]
-    },
-    {
-      "id": "4eea",
-      "projectName": "test 8",
-      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1760055004/toqpw0rfclbwjj0cuk3x.png",
-      "description": "test 08",
-      "members": [
-        {
-          "userId": "3378",
-          "role": "project owner"
-        }
-      ]
-    },
-    {
-      "id": "feaa",
-      "projectName": "test 9",
-      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1760055024/vbaoceaezlwfcg92i09r.png",
-      "description": "test 9",
-      "members": [
-        {
-          "userId": "3378",
-          "role": "project owner"
-        }
-      ]
-    },
-    {
-      "id": "e87a",
-      "projectName": "test 10",
-      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1760057251/n569wovdm3f53fb9lrmm.png",
-      "description": "test 10",
-      "members": [
-        {
-          "userId": "3378",
-          "role": "project owner"
-        }
-      ]
-    },
-    {
-      "id": "7506",
-      "projectName": "test 11",
-      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1760315868/egqcdcy02h3c0dfvbnz2.png",
-      "description": "test 11",
-      "members": [
-        {
-          "userId": "3378",
-          "role": "project owner"
-        }
-      ]
-    },
-    {
-      "id": "aaed",
-      "projectName": "test 12",
-      "image": "https://res.cloudinary.com/dq87endkv/image/upload/v1760315935/ao9fs8umzukgjakajzwu.png",
-      "description": "test 12",
-      "members": [
-        {
-          "userId": "3378",
-          "role": "project owner"
         }
       ]
     }

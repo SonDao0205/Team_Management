@@ -141,7 +141,15 @@ export default function PersonalMission() {
               <th>Tiến Độ</th>
             </tr>
           </thead>
-
+          {Object.entries(tasksByProject).length === 0 && (
+            <tbody>
+              <tr>
+                <td colSpan={6} className="text-muted">
+                  Không có nhiệm vụ nào.
+                </td>
+              </tr>
+            </tbody>
+          )}
           {Object.entries(tasksByProject).map(([projectName, tasks]) => (
             <tbody
               key={projectName}

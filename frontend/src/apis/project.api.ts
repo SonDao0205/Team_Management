@@ -31,6 +31,11 @@ export const deleteProject = createAsyncThunk<{ id: string }, string>(
   "projects/deleteProject",
   async (id: string) => {
     try {
+      const tasks = await axios.get<Task[]>(API_TASK);
+      const filtered = tasks.data.filter((element) => element.projectId === id);
+      await Promise.all(
+        filtered.map((element) => axios.delete(`${API_TASK}/${element.id}`))
+      );
       await axios.delete(`${API_PROJECT}/${id}`);
       return { id };
     } catch (error) {
@@ -64,25 +69,22 @@ export const addMember = createAsyncThunk(
   }) => {
     if (projectId === undefined) return;
     try {
-      //Get project
-      const res = await axios.get<Project>(`${API_PROJECT}/${projectId}`);
-      const currentProject = res.data;
+      const project = await axios.get<Project>(`${API_PROJECT}/${projectId}`);
+      const currentProject = project.data;
 
-      // thêm member vào mảng members trong project
       const updatedProject: Project = {
         ...currentProject,
         members: [...currentProject.members, member],
       };
 
-      // gửi request API
-      const updateRes = await axios.put(
+      const update = await axios.put(
         `${API_PROJECT}/${projectId}`,
         updatedProject
       );
 
-      return updateRes.data;
+      return update.data;
     } catch (error) {
-      console.log(`Update Project Error : `, error);
+      console.log(`Add member Error : `, error);
     }
   }
 );
@@ -100,11 +102,9 @@ export const updateMember = createAsyncThunk(
   }) => {
     if (!projectId) return;
     try {
-      //Get project
       const res = await axios.get<Project>(`${API_PROJECT}/${projectId}`);
       const currentProject = res.data;
 
-      // Update role member
       const updatedMembers = currentProject.members.map((element) =>
         element.userId === userId ? { ...element, role: newRole } : element
       );
@@ -114,13 +114,12 @@ export const updateMember = createAsyncThunk(
         members: updatedMembers,
       };
 
-      // gửi request API
-      const updateRes = await axios.put(
+      const update = await axios.put(
         `${API_PROJECT}/${projectId}`,
         updatedProject
       );
 
-      return updateRes.data;
+      return update.data;
     } catch (error) {
       console.log("Update Member Error:", error);
       throw error;
@@ -139,11 +138,9 @@ export const deleteMember = createAsyncThunk(
   }) => {
     if (!projectId) return;
     try {
-      // Get project
       const res = await axios.get<Project>(`${API_PROJECT}/${projectId}`);
       const currentProject = res.data;
 
-      // xoá member trong project
       const updatedMembers = currentProject.members.filter(
         (element) => element.userId !== userId
       );
@@ -151,13 +148,11 @@ export const deleteMember = createAsyncThunk(
       const updatedProject = { ...currentProject, members: updatedMembers };
       await axios.put(`${API_PROJECT}/${projectId}`, updatedProject);
 
-      // tìm task của user
-      const taskRes = await axios.get<Task[]>(API_TASK);
-      const userTasks = taskRes.data.filter(
+      const task = await axios.get<Task[]>(API_TASK);
+      const userTasks = task.data.filter(
         (task) => task.assigneeId === userId && task.projectId === projectId
       );
 
-      // gỡ id của user trong các task
       for (const task of userTasks) {
         await axios.put(`${API_TASK}/${task.id}`, {
           ...task,
